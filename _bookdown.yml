@@ -1,12 +1,12 @@
-title: "Osa Conservation: Movement data exploration"
+title: "Joares May: Jaguar data exploration"
 author: ".."
 date: "`r Sys.Date()`"
-book_filename: "Osa Conservation: Movement data exploration"
+book_filename: "Joares May: Jaguar data exploration"
 language:
   ui:
     chapter_name: "Part "
 delete_merged_file: true
-rmd_files: ["index.Rmd", "01-DataCleaning.Rmd","02-DataCleaning-Mammals.Rmd", "04-Mammal-Tracking.Rmd" ]
+rmd_files: ["index.Rmd", "01-DataCleaning.Rmd"]
 output:
   bookdown::gitbook:
     theme: cosmo

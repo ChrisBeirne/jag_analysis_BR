@@ -5,9 +5,9 @@ bookdown::gitbook:
     toc:
       collapse: section
       before: |
-        <li><a href="./">Osa Conservation: Movement data exploration</a></li>
+        <li><a href="./">Joares May: Jaguar data exploration</a></li>
       after: |
-        <li><a href="https://github.com/ChrisBeirne/" target="blank">Osa Conservation: Movement data exploration</a></li>
+        <li><a href="https://github.com/ChrisBeirne/" target="blank">Joares May: Jaguar data exploration</a></li>
     download: ["pdf", "epub"]
     search: yes
 bookdown::html_book:

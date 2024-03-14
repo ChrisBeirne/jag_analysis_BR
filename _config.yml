@@ -1,5 +1,5 @@
 theme: jekyll-theme-dinky
-title: Movement-data-exploration
+title: JM-Jaguars
 markdown: kramdown
 kramdown:
   parse_block_html: true
