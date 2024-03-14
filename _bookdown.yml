@@ -1,0 +1,14 @@
+title: "Osa Conservation: Movement data exploration"
+author: ".."
+date: "`r Sys.Date()`"
+book_filename: "Osa Conservation: Movement data exploration"
+language:
+  ui:
+    chapter_name: "Part "
+delete_merged_file: true
+rmd_files: ["index.Rmd", "01-DataCleaning.Rmd","02-DataCleaning-Mammals.Rmd", "04-Mammal-Tracking.Rmd" ]
+output:
+  bookdown::gitbook:
+    theme: cosmo
+    highlight: tango
+output_format: html

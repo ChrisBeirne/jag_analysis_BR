@@ -1,0 +1,5 @@
+theme: jekyll-theme-dinky
+title: Movement-data-exploration
+markdown: kramdown
+kramdown:
+  parse_block_html: true
