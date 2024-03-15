@@ -82,7 +82,7 @@ dir.create("data/raw_collar/")
 jag_dirs <- googledrive::drive_ls(path=as_id("https://drive.google.com/drive/folders/1reuZmFYueXVi-oiWSPCURbC3FTnKSzjq"))
 
 # Download my key
-drive_download(jag_dirs[1,], path="data/chris_key_data_files",type="csv", overwrite=T)
+drive_download(jag_dirs[jag_dirs$name=="chris_key_data_files",], path="data/chris_key_data_files",type="csv", overwrite=T)
 collar_files <- read.csv("data/chris_key_data_files.csv", header=T)
 
 ## Used the below to create my key
@@ -98,7 +98,7 @@ jag_dirs <- jag_dirs[!(jag_dirs$name %in% c("Pandora TM", "Vivara TM", "Colares 
 # }
 
 # Import the key files
-for(i in 28:nrow(collar_files))
+for(i in 1:nrow(collar_files))
 {
   if(is.na(collar_files$id[i])==F)
   {
