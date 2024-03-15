@@ -1,6 +1,5 @@
 introduction
 raw-data
 data-cleaning
-jaguars
 acerola-2022
 aurora-2021
