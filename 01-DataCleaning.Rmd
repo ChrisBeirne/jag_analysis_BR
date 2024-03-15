@@ -24,8 +24,6 @@ i <- 1
 
 Animals are cleaned in alphabetical order. 
 
-### Jaguars
-
 ### `r paste(tmp$name[i], tmp$year[i])`
 
 ```{r}
