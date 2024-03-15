@@ -13,8 +13,6 @@ editor_options:
 
 # Raw data
 
-This section summarizes the movement locations for all the tracking devices within Osa Conservation's movement ecology project. 
-
 ```{r c01, echo=F, message=F, include=F}
 knitr::opts_chunk$set(echo = FALSE, message=F, warning=F)
 
@@ -65,7 +63,64 @@ googledrive::drive_auth(path = Sys.getenv("GOOGLE_AUTHENTICATION_CREDENTIALS"))
 dir.create("data/")
 dir.create("data/raw_collar/")
 
+# Import the locations
+jag_dirs <- googledrive::drive_ls(path=as_id("https://drive.google.com/drive/folders/1reuZmFYueXVi-oiWSPCURbC3FTnKSzjq"))
 
+# Download my key
+drive_download(jag_dirs[1,], path="data/chris_key_data_files",type="csv", overwrite=T)
+collar_files <- read.csv("data/chris_key_data_files.csv", header=T)
+
+## Used the below to create my key
+# # Remove the unrelated elements
+jag_dirs <- jag_dirs[!(jag_dirs$name %in% c("Pandora TM", "Vivara TM", "Colares onças", "chris_key_data_files")),]
+# i <- 31
+# for(i in 1:nrow(jag_dirs))
+# {
+# print(i)
+# print(jag_dirs[i,])
+# tmp <- drive_ls(jag_dirs$id[i])
+# print(tmp)
+# }
+
+# Import the key files
+for(i in 28:nrow(collar_files))
+{
+  if(is.na(collar_files$id[i])==F)
+  {
+  drive_download(as_id(collar_files$id[i]), path=paste0("data/raw_collar/", collar_files$name[i],"_", collar_files$year[i], ".csv"), overwrite=T)
+  }
+}
+
+file_locs <- data.frame(file=list.files("data/raw_collar"), name=NA, year=NA)
+
+tmp <- strsplit(file_locs$file, "_")
+file_locs[,c("name", "year")] <- do.call(rbind,tmp)
+# Strip out .csv
+file_locs$year <- substr(file_locs$year,1,4)
+# Remove the file end
+
+tmp <- as.data.frame(table(file_locs$name))
+colnames(tmp) <- c("name", "years")
+
+
+```
+
+We have `r length(unique(tmp$name))` individuals with data, with between `r min(tmp$year)` and `r max(tmp$year)` years.
+
+```{r c01_summary, echo=F, message=F, eval=T}
+
+kbl(tmp) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+
+#test <- read.csv("data/raw_collar/Mono_unk.csv")
+#as.Date(test$ObservationTime, origin =  "1969-12-31 24:00:00")
+#as.POSIXct(test$ObservationTime, origin="1970-01-01")
+
+```
+
+Most individuals are tracked for one year. 
+
+```{r c01_archive, echo=F, message=F, eval=F}
 # 
 # # Get animals
 # # Vultures
