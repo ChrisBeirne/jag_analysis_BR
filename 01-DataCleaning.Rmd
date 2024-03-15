@@ -49,7 +49,7 @@ Last observation:  `r last(tmp_ind$timestamp)`
 
 Active for: `r paste(round(as.numeric((last(tmp_ind$timestamp) - first(tmp_ind$timestamp))),1), "days")`
 
-```{r v1, }
+```{r j1, }
 #################################################################################
 
 # # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
@@ -133,7 +133,7 @@ abline(h=10, lty=2, col="red")
 
 The is one clear outlier, I will filter it then replot the data.
 
-```{r}
+```{r j1a}
 # Delete extreme values
 final <- tmp_ind[OUT$speed<10,]
 
@@ -222,7 +222,7 @@ i <- i + 1
 
 ### `r paste(tmp$name[i], tmp$year[i])`
 
-```{r}
+```{r j2}
 # Read in the data
 tmp_ind <- read.csv(paste0("data/raw_collar/",tmp$name[i], "_",tmp$year[i],".csv"), skip=23)
 #plot(tmp_ind$GPS.Longitude, tmp_ind$GPS.Latitude)
@@ -244,7 +244,7 @@ Last observation:  `r last(tmp_ind$timestamp)`
 
 Active for: `r paste(round(as.numeric((last(tmp_ind$timestamp) - first(tmp_ind$timestamp))),1), "days")`
 
-```{r v1, }
+```{r j2a, }
 #################################################################################
 
 # # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
@@ -328,7 +328,7 @@ abline(h=10, lty=2, col="red")
 
 The is one clear outlier, I will filter it then replot the data.
 
-```{r}
+```{r j2b}
 # Delete extreme values
 final <- tmp_ind[OUT$speed<10,]
 
