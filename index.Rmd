@@ -11,6 +11,8 @@ editor_options:
   chunk_output_type: console
 ---
 
+# Introduction
+
 This workbook details the error checking and analysis for the Mato Grosso jaguars. 
 
 The work will proceed in three steps.
@@ -24,7 +26,7 @@ The work will proceed in three steps.
 Below is a short summary of the individuals we have data for.
 
 
-# Raw data
+### Raw data
 
 ```{r c01, echo=F, message=F, include=F}
 knitr::opts_chunk$set(echo = FALSE, message=F, warning=F)
