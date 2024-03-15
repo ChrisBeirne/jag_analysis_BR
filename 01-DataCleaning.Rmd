@@ -213,7 +213,8 @@ What is the data format?
 
 ```{r}
 kbl(head(final)) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))  %>%
+  scroll_box(width = "1200px", height = "300px")
 
 # Add it to the list 
 clean_mammal[[i]] <- final
@@ -413,7 +414,8 @@ What is the data format?
 
 ```{r}
 kbl(head(final)) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))  %>%
+  scroll_box(width = "1200px", height = "300px")
 
 # Add it to the list 
 clean_mammal[[i]] <- final
