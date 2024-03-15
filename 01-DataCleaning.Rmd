@@ -2,9 +2,10 @@
 
 All GPS tracking devices come with errors, and each track must be checked visually and cleaned of outliers before analysis.
 
-Furthermore, the data is stored in several different formats. We will standardise this so that everything is the same for all individuals and export a new data frame at the end. 
+Furthermore, the data is stored in several different formats. We will standardize this so that everything is the same for all individuals and export a new data frame at the end. 
  
 This page shows this process for each animal within the project. 
+
 ```{r}
  library(atlastools)
  library(ctmm)
@@ -33,7 +34,6 @@ tmp_ind <- read.csv(paste0("data/raw_collar/",tmp$name[i], "_",tmp$year[i],".csv
 #plot(tmp_ind$GPS.Longitude, tmp_ind$GPS.Latitude)
 
 # Remove the USA locations
-summary(tmp_ind$GPS.Latitude)
 tmp_ind <- tmp_ind[tmp_ind$GPS.Latitude < -5,]
 # Remove misses
 tmp_ind <- tmp_ind[is.na(tmp_ind$GPS.Longitude)==F,]
@@ -109,9 +109,6 @@ m_df <- atl_filter_bounds(tmp_ind, x = "GPS.Longitude",
                               y = "GPS.Latitude", x_range = c(-70, -40),
                               y_range = c(-30, -10), remove_inside = FALSE)
 
-summary(tmp_ind$GPS.Latitude)
-summary(tmp_ind$GPS.Longitude)
-
 # Method 2 -
 # Create a telemtry object
 tel = as.telemetry(m_df)
@@ -131,7 +128,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),
 abline(h=10, lty=2, col="red")
 ```
 
-The is one clear outlier, I will filter it then replot the data.
+The is one clear outlier, I will filter it then re-plot the data.
 
 ```{r j1a}
 # Delete extreme values
@@ -210,14 +207,21 @@ xlim <- c(0,24 %#% "hours") # 0-12 hour window
 # # Plot the 95% Utilization Distribution
 # plot(Shakc, UD = Hr, level.UD = 0.95, main = "Shakira")
 # summary(Hr, level.UD = 0.95)
+```
 
- colnames(final)
- 
- 
- clean_mammal[[i]] <- final
+What is the data format?
+
+```{r}
+kbl(head(final)) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) 
+
+# Add it to the list 
+clean_mammal[[i]] <- final
  
 i <- i + 1
 ```
+
+
 
 
 ### `r paste(tmp$name[i], tmp$year[i])`
@@ -228,7 +232,7 @@ tmp_ind <- read.csv(paste0("data/raw_collar/",tmp$name[i], "_",tmp$year[i],".csv
 #plot(tmp_ind$GPS.Longitude, tmp_ind$GPS.Latitude)
 
 # Remove the USA locations
-summary(tmp_ind$GPS.Latitude)
+#ummary(tmp_ind$GPS.Latitude)
 tmp_ind <- tmp_ind[tmp_ind$GPS.Latitude < -5,]
 # Remove misses
 tmp_ind <- tmp_ind[is.na(tmp_ind$GPS.Longitude)==F,]
@@ -304,9 +308,6 @@ m_df <- atl_filter_bounds(tmp_ind, x = "GPS.Longitude",
                               y = "GPS.Latitude", x_range = c(-70, -40),
                               y_range = c(-30, -10), remove_inside = FALSE)
 
-summary(tmp_ind$GPS.Latitude)
-summary(tmp_ind$GPS.Longitude)
-
 # Method 2 -
 # Create a telemtry object
 tel = as.telemetry(m_df)
@@ -326,55 +327,55 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),
 abline(h=10, lty=2, col="red")
 ```
 
-The is one clear outlier, I will filter it then replot the data.
+No clear outliers here.
 
 ```{r j2b}
 # Delete extreme values
-final <- tmp_ind[OUT$speed<10,]
+final <- tmp_ind#[OUT$speed<10,]
 
-# Check the outlier is gone [Only if required]
-
-# Convert to a shapefile
-lfc <- st_linestring(as.matrix(final[,c("GPS.Longitude", "GPS.Latitude")]))
-dat_shp <- st_sf(data.frame(name=paste(tmp$name[i], tmp$year[i]), geom=st_geometry(lfc)))
-#plot(dat_shp)
-
+# # Check the outlier is gone [Only if required]
 # 
-m <- leaflet() %>%
-  # Add a satellite image layer
-  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
-  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
-  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
-# Add the shapefiles
-m %>% addPolylines(data = dat_shp,
-                   # Colour by individual
-                   color = "#FF10F0",
-                   # The line properties
-                   weight = 1,#opacity = 0.6,
-                   # hover label
-                   label = dat_shp$name) %>%
-  addCircleMarkers(lng=final$GPS.Longitude,
-                   lat=final$GPS.Latitude,
-                   color="#000", radius=2, stroke=F,
-                   popup=final$timestamp) %>%
-      addCircleMarkers(lng=final$GPS.Longitude[1],
-                   lat=final$GPS.Latitude[1],
-                   color="#03F",radius=4,stroke=T,
-                   popup="start") %>%
-    addCircleMarkers(lng=final$GPS.Longitude[nrow(final)],
-                   lat=final$GPS.Latitude[nrow(final)],
-                   color="red",radius=4, stroke=T,
-                   popup="end") %>%
-
-  # Add a legend
-  addLayersControl(
-    baseGroups = c("OS", "Simple", "Satellite")) %>%
-  addScaleBar(position = "topleft") %>% 
-  addLegend(
-  position = c("topleft"),
-  colors=c("#03F","red" ),
-  opacity = 0.5,
-  labels = c("Start", "End"))
+# # Convert to a shapefile
+# lfc <- st_linestring(as.matrix(final[,c("GPS.Longitude", "GPS.Latitude")]))
+# dat_shp <- st_sf(data.frame(name=paste(tmp$name[i], tmp$year[i]), geom=st_geometry(lfc)))
+# #plot(dat_shp)
+# 
+# # 
+# m <- leaflet() %>%
+#   # Add a satellite image layer
+#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
+# # Add the shapefiles
+# m %>% addPolylines(data = dat_shp,
+#                    # Colour by individual
+#                    color = "#FF10F0",
+#                    # The line properties
+#                    weight = 1,#opacity = 0.6,
+#                    # hover label
+#                    label = dat_shp$name) %>%
+#   addCircleMarkers(lng=final$GPS.Longitude,
+#                    lat=final$GPS.Latitude,
+#                    color="#000", radius=2, stroke=F,
+#                    popup=final$timestamp) %>%
+#       addCircleMarkers(lng=final$GPS.Longitude[1],
+#                    lat=final$GPS.Latitude[1],
+#                    color="#03F",radius=4,stroke=T,
+#                    popup="start") %>%
+#     addCircleMarkers(lng=final$GPS.Longitude[nrow(final)],
+#                    lat=final$GPS.Latitude[nrow(final)],
+#                    color="red",radius=4, stroke=T,
+#                    popup="end") %>%
+# 
+#   # Add a legend
+#   addLayersControl(
+#     baseGroups = c("OS", "Simple", "Satellite")) %>%
+#   addScaleBar(position = "topleft") %>% 
+#   addLegend(
+#   position = c("topleft"),
+#   colors=c("#03F","red" ),
+#   opacity = 0.5,
+#   labels = c("Start", "End"))
 
 # Recreate the telemtry object
 m_df <- atl_filter_bounds(final, x = "GPS.Longitude",
@@ -406,11 +407,18 @@ xlim <- c(0,24 %#% "hours") # 0-12 hour window
 # plot(Shakc, UD = Hr, level.UD = 0.95, main = "Shakira")
 # summary(Hr, level.UD = 0.95)
 
- colnames(final)
- 
- 
- clean_mammal[[i]] <- final
+```
+
+What is the data format?
+
+```{r}
+kbl(head(final)) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) 
+
+# Add it to the list 
+clean_mammal[[i]] <- final
  
 i <- i + 1
 ```
+
 
