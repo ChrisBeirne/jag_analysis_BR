@@ -3,3 +3,11 @@ raw-data
 data-cleaning
 acerola-2022
 aurora-2021
+badalo-2022
+brazuca-2012
+brutus-2013
+chuva-2011
+esperança-2012
+esperança-2015
+esperança-2017
+felino-2017
