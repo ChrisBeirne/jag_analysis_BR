@@ -707,7 +707,7 @@ m %>% addPolylines(data = dat_shp,
 # Finding outliers
 # There are several ways to remove them but I'm going to use atlastools and ctmm framework
 # METHOD 1 - GEOFENCE
-plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
 m_df <- atl_filter_bounds(tmp_ind, x = "GPS.Longitude",
                               y = "GPS.Latitude", x_range = c(-70, -40),
                               y_range = c(-30, -10), remove_inside = FALSE)
