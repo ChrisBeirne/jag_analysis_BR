@@ -70,7 +70,9 @@ jobs:
       - name: Install ctmm
         run: Rscript -e "install.packages('ctmm')"
       - name: Install move2
-        run: Rscript -e "install.packages('move2')"              
+        run: Rscript -e "install.packages('move2')"     
+      - name: Install janitor
+        run: Rscript -e "install.packages('janitor')"      
       - name: Render Book
         env: 
           GOOGLE_AUTHENTICATION_CREDENTIALS: ${{ secrets.GOOGLE_AUTHENTICATION_CREDENTIALS }}
